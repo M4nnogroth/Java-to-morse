@@ -8,8 +8,8 @@ import java.io.File;
  */
 
 public class Main {
-    static int shortStop = 180;
-    static int longStop = 300;
+    static int shortStop = 170;
+    static int longStop = 280;
 
     static Clip shortclip;
     static Clip longclip;
@@ -44,7 +44,7 @@ public class Main {
         playShort();
         Thread.sleep(shortStop);
         playShort();
-        Thread.sleep(shortStop);
+        Thread.sleep(longStop);
 
         playLong();
         Thread.sleep(longStop);
