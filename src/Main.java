@@ -1,7 +1,7 @@
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.io.File;
+import java.io.*;
 
 /**
  * Created by william on 2016-11-01.
@@ -38,7 +38,38 @@ public class Main {
         }
     }
 
+    public static String parse(char input) {
+        String result = "";
+        String line;
+        input = Character.toUpperCase(input);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("morse.txt"));
+            while((line = reader.readLine()) != null) {
+                if (line.charAt(0) == input) {
+                    for (int i=1; i < line.length(); i++) {
+                        result += line.charAt(i);
+                    }
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String multiparse(String input) {
+        String result = "";
+        for (int i=0; i<input.length(); i++) {
+            result+=parse(input.charAt(i));
+        }
+        return result;
+    }
+
     public static void main(String[] args) throws InterruptedException {
+        /*
         playShort();
         Thread.sleep(shortStop);
         playShort();
@@ -59,5 +90,8 @@ public class Main {
         Thread.sleep(shortStop);
         playShort();
         Thread.sleep(shortStop);
+        */
+
+        System.out.println(multiparse("hej"));
     }
 }
