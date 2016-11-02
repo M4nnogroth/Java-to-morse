@@ -38,7 +38,7 @@ public class Main {
         }
     }
 
-    public static String parse(char input) {
+    public static String parse_morse(char input) {
         String result = "";
         String line;
         input = Character.toUpperCase(input);
@@ -60,38 +60,38 @@ public class Main {
         return result;
     }
 
-    public static String multiparse(String input) {
+    public static String multiparse_morse(String input) {
         String result = "";
         for (int i=0; i<input.length(); i++) {
-            result+=parse(input.charAt(i));
+            if (input.charAt(i) == ' ') {
+                result+="/";
+            }
+            else {
+                result+=parse_morse(input.charAt(i));
+            }
         }
         return result;
     }
 
+    public static void parse_audio(String input) throws InterruptedException {
+        for (int i=0; i<input.length(); i++) {
+            switch (input.charAt(i)) {
+                case '.':
+                    playShort();
+                    Thread.sleep(shortStop);
+                    break;
+                case '-':
+                    playLong();
+                    Thread.sleep(longStop);
+                    break;
+                case '/':
+                    Thread.sleep(500);
+            }
+
+        }
+    }
+
     public static void main(String[] args) throws InterruptedException {
-        /*
-        playShort();
-        Thread.sleep(shortStop);
-        playShort();
-        Thread.sleep(shortStop);
-        playShort();
-        Thread.sleep(longStop);
-
-        playLong();
-        Thread.sleep(longStop);
-        playLong();
-        Thread.sleep(longStop);
-        playLong();
-        Thread.sleep(longStop);
-
-        playShort();
-        Thread.sleep(shortStop);
-        playShort();
-        Thread.sleep(shortStop);
-        playShort();
-        Thread.sleep(shortStop);
-        */
-
-        System.out.println(multiparse("hej"));
+        parse_audio(multiparse_morse("Marcus kan du attuna dig då"));
     }
 }
