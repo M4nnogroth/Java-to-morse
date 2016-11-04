@@ -13,33 +13,31 @@ public class Main {
 
     static Clip shortclip;
     static Clip longclip;
-    static int once = 0;
+
     public static void playShort() {
         try {
-            if(once == 0) {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("short.wav").getAbsoluteFile());
-                shortclip = AudioSystem.getClip();
-                shortclip.open(audioInputStream);
-                once = 1;
-            }
+            AudioInputStream ShortInputStream = AudioSystem.getAudioInputStream(new File("short.wav").getAbsoluteFile());
+            shortclip = AudioSystem.getClip();
+            shortclip.open(ShortInputStream);
             shortclip.start();
-        } catch(Exception ex) {
-            System.out.println("Error with playing sound.");
+            Thread.sleep(shortStop);
+            shortclip.stop();
+            shortclip.flush();
+        }catch(Exception ex) {
             ex.printStackTrace();
         }
     }
 
     public static void playLong() {
         try {
-            if(once == 1) {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("long.wav").getAbsoluteFile());
-                longclip = AudioSystem.getClip();
-                longclip.open(audioInputStream);
-                once = 2;
-            }
+            AudioInputStream LongInputStream = AudioSystem.getAudioInputStream(new File("long.wav").getAbsoluteFile());
+            longclip = AudioSystem.getClip();
+            longclip.open(LongInputStream);
             longclip.start();
-        } catch(Exception ex) {
-            System.out.println("Error with playing sound.");
+            Thread.sleep(longStop);
+            longclip.stop();
+            longclip.flush();
+        }catch(Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -84,23 +82,12 @@ public class Main {
             switch (input.charAt(i)) {
                 case '.':
                     playShort();
-                    Thread.sleep(shortStop);
-                    shortclip.stop();
-                    shortclip.flush();
                     break;
                 case '-':
                     playLong();
-                    Thread.sleep(longStop);
-                    longclip.stop();
-                    longclip.flush();
                     break;
                 case '/':
                     Thread.sleep(500);
-                    shortclip.stop();
-                    longclip.stop();
-
-                    shortclip.flush();
-                    longclip.flush();
             }
 
         }
