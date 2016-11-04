@@ -21,8 +21,7 @@ public class Main {
             shortclip.open(ShortInputStream);
             shortclip.start();
             Thread.sleep(shortStop);
-            shortclip.stop();
-            shortclip.flush();
+            shortclip.close();
         }catch(Exception ex) {
             ex.printStackTrace();
         }
@@ -35,8 +34,7 @@ public class Main {
             longclip.open(LongInputStream);
             longclip.start();
             Thread.sleep(longStop);
-            longclip.stop();
-            longclip.flush();
+            longclip.close();
         }catch(Exception ex) {
             ex.printStackTrace();
         }
