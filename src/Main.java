@@ -1,18 +1,25 @@
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
 /**
  * Created by william on 2016-11-01.
  */
 
-public class Main {
+public class Main extends JFrame implements ActionListener{
     static int shortStop = 180;
     static int longStop = 300;
 
     static Clip shortclip;
     static Clip longclip;
+
+    static JTextField input;
+    static JTextField output;
 
     public static void playShort() {
         try {
@@ -91,9 +98,43 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        String output = "BATTLEFIELD 1 BATTLEFIELD 1 BATTLEFIELD 1 BATTLEFIELD 1 BATTLEFIELD 1 BATTLEFIELD 1 ";
-        System.out.println(multiparse_morse(output));
-        parse_audio(multiparse_morse(output));
+    Main() {
+        Dimension base = new Dimension(200, 200);
+        Dimension IO = new Dimension(base.height-10, 20);
+
+        setPreferredSize(base);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        input = new JTextField("hej");
+        output = new JTextField();
+
+        JButton confirm = new JButton("Confirm");
+        output.setPreferredSize(IO);
+        output.setEditable(false);
+        input.setPreferredSize(IO);
+        confirm.addActionListener(this);
+        add(output);
+        add(input);
+        add(confirm);
+        pack();
+        setVisible(true);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String outputStr = input.getText();
+        output.setText(multiparse_morse(outputStr));
+        System.out.println(multiparse_morse(outputStr));
+        try {
+            parse_audio(multiparse_morse(outputStr));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Main s = new Main();
+    }
+
 }
