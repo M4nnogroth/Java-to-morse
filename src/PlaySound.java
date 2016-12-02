@@ -8,11 +8,11 @@ import java.io.File;
  */
 public class PlaySound {
 
-    final static int shortStop = 180;
-    final static int longStop = 300;
+    private final static int shortStop = 180;
+    private final static int longStop = 300;
 
-    public static Clip shortclip;
-    public static Clip longclip;
+    private static Clip shortclip;
+    private static Clip longclip;
 
     public static void playShort() {
         try {
