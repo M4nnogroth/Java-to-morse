@@ -14,6 +14,9 @@ public class PlaySound {
     private static Clip shortclip;
     private static Clip longclip;
 
+    /**
+     * Plays a short beep
+     */
     public static void playShort() {
         try {
             AudioInputStream ShortInputStream = AudioSystem.getAudioInputStream(new File("short.wav").getAbsoluteFile());
@@ -27,6 +30,9 @@ public class PlaySound {
         }
     }
 
+    /**
+     * Plays a long beep
+     */
     public static void playLong() {
         try {
             AudioInputStream LongInputStream = AudioSystem.getAudioInputStream(new File("long.wav").getAbsoluteFile());
