@@ -4,20 +4,20 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 /**
- * Created by william on 12/2/16.
+ * contains methods for playing beeps
  */
 public class PlaySound {
 
-    private final static int shortStop = 180;
-    private final static int longStop = 300;
+    private final int shortStop = 180;
+    private final int longStop = 300;
 
-    private static Clip shortclip;
-    private static Clip longclip;
+    private Clip shortclip;
+    private Clip longclip;
 
     /**
      * Plays a short beep
      */
-    public static void playShort() {
+    public void playShort() {
         try {
             AudioInputStream ShortInputStream = AudioSystem.getAudioInputStream(new File("short.wav").getAbsoluteFile());
             shortclip = AudioSystem.getClip();
@@ -33,7 +33,7 @@ public class PlaySound {
     /**
      * Plays a long beep
      */
-    public static void playLong() {
+    public void playLong() {
         try {
             AudioInputStream LongInputStream = AudioSystem.getAudioInputStream(new File("long.wav").getAbsoluteFile());
             longclip = AudioSystem.getClip();

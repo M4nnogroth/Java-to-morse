@@ -4,19 +4,27 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by william on 2017-02-17.
- */
-
-/**
- * Class to represent a morse object
+ * Class to represent a morse object and encode a string into morse
  */
 public class Morse {
     private String morse;
     private int length;
 
-    public Morse(String morse, int length) {
-        this.morse = morse;
-        this.length = length;
+    /**
+     * Constructor for Morse class
+     * @param morse String representing morse (. -)
+     */
+    public Morse(String morse) {
+        this.morse = multiparse_morse(morse);
+        this.length = this.morse.length();
+    }
+
+    public String getString() {
+        return this.morse;
+    }
+
+    public int getLength() {
+        return this.length;
     }
 
     /**
@@ -49,10 +57,10 @@ public class Morse {
     /**
      * Parses a string instead of char
      * @param input String
-     * @return a string with the same content as parse_morse.
+     * @return String parsed to morse
      * This method can also handle whitespace
      */
-    public String multiparse_morse(String input) {
+    private String multiparse_morse(String input) {
         String result = "";
         for (int i=0; i<input.length(); i++) {
             if (input.charAt(i) == ' ') {
@@ -63,5 +71,27 @@ public class Morse {
             }
         }
         return result;
+    }
+
+
+    /**
+     * Parses given morse object to a series of beeps
+     * @throws InterruptedException
+     */
+    public void parse_audio() throws InterruptedException {
+        PlaySound sound = new PlaySound();
+        for (int i = 0; i < this.getLength(); i++) {
+            switch (this.getString().charAt(i)) {
+                case '.':
+                    sound.playShort();
+                    break;
+                case '-':
+                    sound.playLong();
+                    break;
+                case '/':
+                    Thread.sleep(500);
+            }
+
+        }
     }
 }
